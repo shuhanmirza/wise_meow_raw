@@ -1,6 +1,5 @@
 package wise_meow;
 
-import wise.meow.display.*;
 import java.io.*;
 import java.net.*;
 import java.nio.file.Files;
@@ -12,7 +11,7 @@ import java.util.logging.Logger;
 
 public class WiseMeow {
 
-    public String chat(String query) throws Exception {
+    public String chat(String query) {
         String response = null;
         query = query.toLowerCase();
 
@@ -43,17 +42,15 @@ public class WiseMeow {
             try {
                 response = from_chat(query);
             }
-            catch(FileNotFoundException f)
-            {
-                Files.write(Paths.get("newChat.txt"), "".getBytes(), StandardOpenOption.CREATE_NEW);
-                throw new Exception();
-            }
             catch (IOException ex) {
                 Logger.getLogger(WiseMeow.class.getName()).log(Level.SEVERE, null, ex);
             }
             catch (Exception ex) {
-                throw ex;
-                //addToChat(query);
+                try {
+                    addToChat(query);
+                } catch (IOException ex1) {
+                    Logger.getLogger(WiseMeow.class.getName()).log(Level.SEVERE, null, ex1);
+                }
             }
         }
 
