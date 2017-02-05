@@ -1,5 +1,7 @@
 package wise_meow;
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 import java.io.*;
 import java.net.*;
 import java.nio.file.Files;
@@ -48,6 +50,7 @@ public class WiseMeow {
             catch (Exception ex) {
                 try {
                     addToChat(query);
+                    return "";
                 } catch (IOException ex1) {
                     Logger.getLogger(WiseMeow.class.getName()).log(Level.SEVERE, null, ex1);
                 }
@@ -414,6 +417,12 @@ public class WiseMeow {
     }
 
     void addToChat(String query) throws IOException {
+        
+        String voiceName = "kevin16";
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        Voice voice = voiceManager.getVoice(voiceName);
+        voice.setStyle("robotic");
+        voice.allocate();
 
         Scanner s1 = new Scanner(System.in);
         String str = null;
@@ -422,7 +431,7 @@ public class WiseMeow {
         Files.write(Paths.get("newChat.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
 
         System.out.println("I didn't understand what you told me. Please teach me what to respond in the asked question.Thanks :D \nYou :");
-        
+        voice.speak("I didn't understand what you told me. Please teach me what to respond in the asked question.Thanks ");
         
         str = s1.nextLine();
         Files.write(Paths.get("newChat.txt"), str.getBytes(), StandardOpenOption.APPEND);
@@ -432,6 +441,7 @@ public class WiseMeow {
         Files.write(Paths.get("newChat.txt"), "\n".getBytes(), StandardOpenOption.APPEND);
 
         System.out.println("MEOW : \n Thank you wise human :D");
+        voice.speak("Thank you wise human");
     }
     
     
