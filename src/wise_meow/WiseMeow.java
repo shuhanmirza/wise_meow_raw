@@ -25,7 +25,7 @@ public class WiseMeow {
             }
         } else if (query.contains("bye") == true && query.endsWith("bye") && query.startsWith("good")) {
 
-            response = "Good Bye :D Have a nice day :D";
+            response = "Good Bye ... Have a nice day ...";
         } else {
             try {
                 response = parse_google(query);
@@ -88,13 +88,13 @@ public class WiseMeow {
                         }
                     }
 
-                    for (;; i--) {
+                    for (;i>=0; i--) {
                         if (c[i] == 'h' && c[i + 1] == 't' && c[i + 2] == 't' && c[i + 3] == 'p') {
                             break;
                         }
                     }
 
-                    for (j = 0; c[i] != '&'; i++, j++) {
+                    for (j = 0; c[i] != '&' && i < c.length; i++, j++) {
                         res[j] = c[i];
                     }
 

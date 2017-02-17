@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
+import java.io.DataOutputStream;
+import java.net.Socket;
 
 /**
  *
@@ -57,9 +59,23 @@ public class LAUNCHER
 
             l = res.length();
 
-             //it is time to use jsoup
+            //it is time to use jsoup
             //System.out.println(res.length());
         }
 
+    }
+
+    private void sendText( String res)
+    {
+        try {
+            Socket s = new Socket("localhost", 6666);
+            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+            dout.writeUTF(res);
+            dout.flush();
+            dout.close();
+            s.close();
+        } catch (IOException ex) {
+            Logger.getLogger(LAUNCHER.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
